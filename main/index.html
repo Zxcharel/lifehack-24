@@ -22,11 +22,11 @@
     <div class="container d-flex" style="width: 50vw; height: 100vh; background-color: white; 
     flex-direction: column; margin-left: 0; align-items: center; justify-content: center;">
 
-      <div class="p-3 container">
+      <div class="p-3 container" style="overflow-y: auto; max-height: max-content;">
 
-        <h2 class="fw-bold mb-2"> Uh Oh! </h2>
+        <h1 class="fw-bold mb-2"> Uh Oh! </h1>
 
-        <h6 style="color: #5A25A6;"> YOU HAVE BEEN SCAMMED </h6>
+        <h3 style="color: #5A25A6;"> YOU HAVE BEEN SCAMMED </h3>
 
         <p class="fw-bold my-3"> well, almost. </p>
 
@@ -34,46 +34,136 @@
           
           The website you attempted to visit:
             
-          <p class="my-2 mx-0" style="color: #5A25A6;"> {{ url }} </p>
+          <p class="my-2 mx-0 fw-bold" style="color: #5A25A6;"> {{ url }} </p>
 
           has a history of suspicious activity and is unsafe.
 
             </br> </br>
 
-          <p class="fw-bold"> We won’t be here to protect you all the time. </p>
+          <p class="fw-bold mb-4"> We won’t be here to protect you all the time. </p>
 
           <div class="justify-content-center d-flex">
 
             <button class="btn mt-3 rounded-pill fw-bold px-4" @click="getTips()" style="background-color: #AC7EBA;
-            color: white; font-size: small;">
+            color: white; font-size: small;" id="button">
               LEARN HOW TO IDENTIFY SAFE WEBSITES
             </button>
 
           </div>
 
-          <div class="container" id="tips"> 
+          <div class="container mt-3" id="tips"> 
 
-            <div class="container" id="protocol" style="background-color: #AC7EBA; color: white;">
+            <div class="container p-3 px-4 mb-4" id="protocol" style="background-color: #AC7EBA; color: white; border-radius: 15px; display: none;">
 
-              <span class="fw-bold"> 
+              <span class="fw-bold fs-6"> 
               
                 The website you tried to visit:
                 
-                <h6> 
+                <h6 class="fw-normal mt-2" style="overflow-wrap: break-word; text-decoration: underline;"> 
 
-                  <span style="color: #403F69">{{ protocol }}</span>//{{domain}}/{{path}}/{{query}}
+                  <span style="color: #403F69; text-decoration: underline;">{{ protocol }}</span>//{{domain}}/{{path}}/{{query}}
                    
                 </h6>
+
+                <div class="row p-0 d-flex justify-content-center align-items-center">
+
+                  <div class="col-2 p-1">
+                    <img src="../img/warning.png" style="width: 100%; height: auto;">
+                  </div>
+
+                  <div class="col-10 p-1"> 
+                    <span style="color: #403F69"> http </span> protocol is not secure
+                  </div>
+
+                </div>
+                
               
               </span>
 
             </div>
 
-            <div class="container" id="domain">
+            <div class="container p-3 px-4 mb-4" id="domain" style="background-color: #AC7EBA; color: white; border-radius: 15px; display: none;">
+
+              <span class="fw-bold fs-6"> 
+              
+                The website you tried to visit:
+                
+                <h6 class="fw-normal mt-2" style="overflow-wrap: break-word; text-decoration: underline;"> 
+
+                  {{ protocol }}//<span style="color: #403F69; text-decoration: underline;">{{domain}}</span>/{{path}}/{{query}}
+                   
+                </h6>
+
+                <div class="row p-0 d-flex justify-content-center align-items-center">
+
+                  <div class="col-2 p-1">
+                    <img src="../img/warning.png" style="width: 100%; height: auto;">
+                  </div>
+
+                  <div class="col-10 p-1"> 
+                    The domain name <span style="color: #403F69; text-decoration: underline;">{{domain}}</span> is not in our whitelist
+                  </div>
+
+                </div>
+                
+              
+              </span>
 
             </div>
 
-            <div class="container" id="query">
+            <div class="container p-3 px-4 mb-4" id="query" style="background-color: #AC7EBA; color: white; border-radius: 15px; display: none;">
+
+              <span class="fw-bold fs-6"> 
+              
+                The website you tried to visit:
+                
+                <h6 class="fw-normal mt-2" style="overflow-wrap: break-word; text-decoration: underline;"> 
+
+                  {{ protocol }}//{{domain}}/{{path}}/<span style="color: #403F69; text-decoration: underline;">{{query}}</span>
+                   
+                </h6>
+
+                <div class="row p-0 d-flex justify-content-center align-items-center">
+
+                  <div class="col-2 p-1">
+                    <img src="../img/warning.png" style="width: 100%; height: auto;">
+                  </div>
+
+                  <div class="col-10 p-1"> 
+                    Query is susceptible to malicious attacks
+                  </div>
+
+                </div>
+              
+              </span>
+
+            </div>
+
+            <div class="container p-3 px-4 mb-4" id="safe" style="background-color: #41CD0F; color: white; border-radius: 15px; display: none;">
+
+              <span class="fw-bold fs-6"> 
+              
+                Example of a safe website:
+                
+                <h6 class="fw-normal mt-2" style="overflow-wrap: break-word; text-decoration: underline;"> 
+
+                  {{ protocol }}//{{domain}}/{{path}}/{{query}}
+                   
+                </h6>
+
+                <div class="row p-0 d-flex justify-content-center align-items-center">
+
+                  <div class="col-2 p-1">
+                    <img src="../img/tick.png" style="width: 100%; height: auto;">
+                  </div>
+
+                  <div class="col-10 p-1" v-html="safeTips"> 
+                  </div>
+
+                </div>
+                
+              
+              </span>
 
             </div>
 
@@ -86,7 +176,7 @@
     </div>
 
     <div class="container justify-content-center" style="display: flex; width: 50vw; height: 100vh; align-items: center;">
-      <img src="../img/warning.png" style="width: 80%; height: 80%; object-fit: contain;">
+      <img src="../img/warning_overlay.png" style="width: 80%; height: 80%; object-fit: contain;">
     </div>
       
   </body>
@@ -94,7 +184,7 @@
   <script>
 
     // const url = window.location.href;
-    const url = "https://www.youtube.com/videos/user/watch?v=lnx1n1ZM6Bc&ab_channel=DudeLemon"
+    const url = "http://www.youtube.com/videos/user/search?query=lnx1n1ZM6Bc&ab_channel="
     const temp = url.split('//');
     const protocol = temp[0];
     const urlArr = temp[1].split('/');
@@ -110,27 +200,48 @@
           protocol: protocol,
           domain: domain,
           path: path,
-          query: query
+          query: query,
+          safeTips: ""
         }
       },
 
       methods: {
 
         getTips() {
-          console.log(protocol);
-          console.log(urlArr);
-          console.log(protocol)
-          console.log(domain)
-          console.log(path)
-          console.log(query)
+
+          document.getElementById("button").style.display = "none";
 
           if (protocol === "http:") {
-
-
-
+            document.getElementById("protocol").style.display = "block";
+            this.safeTips += "- Use HTTPS protocol </br>";
           }
 
+          if (domain !== "www.google.com") {
+            document.getElementById("domain").style.display = "block";
+            this.safeTips += "- Visit websites with trusted domain names </br> ";
+          }
+
+          queries = query.split('&')
+          console.log(queries)
+
+          for (check of queries) {
+            console.log(check)
+            if (check.split('=').size != 2) {
+              document.getElementById("query").style.display = "block";
+              this.safeTips += "- Avoid websites with suspicious queries </br>";
+              break;
+            }
+          }
+
+          document.getElementById("safe").style.display = "block"; 
+
         }
+
+      },
+
+      computed: {
+
+        
 
       }
 
