@@ -1,16 +1,29 @@
 {
     "manifest_version": 3,
-    "name": "Address Bar URL Interceptor",
+    "name": "Fraudian",
     "version": "1.0",
+    "description": "Checks if a website is fraudulent or a scam before loading the page.",
     "permissions": [
+      "declarativeNetRequest",
+      "declarativeNetRequestWithHostAccess",
+      "webNavigation",
+      "storage",
       "activeTab",
-      "webNavigation"
+      "tabs",
+      "notifications"
     ],
     "background": {
-      "service_worker": "background.js"
+      "service_worker": "config/background.js"
     },
     "host_permissions": [
       "<all_urls>"
-    ]
+    ],
+    "declarative_net_request": {
+      "rule_resources": [{
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "config/rules.json"
+      }]
+    }
   }
   
