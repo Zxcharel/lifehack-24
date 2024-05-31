@@ -1,6 +1,86 @@
+<!-- page to add event -->
+
+<!DOCTYPE html>
 <html>
-  <body>
-    <h1>Hello Extensions</h1>
-    <script src="index.js"></script>
+  <head>
+      <meta charset='utf-8'>
+      <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+      <title>Add Event</title>
+      <meta name='viewport' content='width=device-width, initial-scale=1'>
+      <!-- Vue.js -->
+      <script src="https://cdn.jsdelivr.net/npm/vue@3.2.16/dist/vue.global.prod.js"></script>
+      <!-- Bootstrap CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+      <!-- Add Axios Library -->
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+
+  <body class="background m-0 p-0" id="app" style="background: url(../img/bg.jpg) no-repeat center center fixed;
+  background-size: cover; display: flex;">
+
+    <div class="container d-flex" style="width: 50vw; height: 100vh; background-color: white; 
+    flex-direction: column; margin-left: 0; align-items: center; justify-content: center;">
+
+      <div class="p-3 container">
+
+        <h2 class="fw-bold mb-2"> Uh Oh! </h2>
+
+        <h6 style="color: #5A25A6;"> YOU HAVE BEEN SCAMMED </h6>
+
+        <p class="fw-bold my-3"> well, almost. </p>
+
+        <span class="mt-4 fw-light"> 
+          
+          The website you attempted to visit:
+            
+          <p class="my-2 mx-0" style="color: #5A25A6;"> {{ url }} </p>
+
+          has a history of suspicious activity and is unsafe.
+
+            </br> </br>
+
+          <p class="fw-bold"> We won’t be here to protect you all the time. </p>
+
+          <div class="justify-content-center d-flex">
+            
+            <button class="btn mt-3 rounded-pill fw-bold px-4" onclick="" style="background-color: #AC7EBA;
+            color: white; font-size: small;">
+              LEARN HOW TO IDENTIFY SAFE WEBSITES
+            </button>
+
+          </div>
+
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="container justify-content-center" style="display: flex; width: 50vw; height: 100vh; align-items: center;">
+      <img src="../img/warning.png" style="width: 80%; height: 80%; object-fit: contain;">
+    </div>
+      
   </body>
+
+  <script>
+
+    const url = window.location.href;
+    const urlArr = url.split('/');
+    const domain = urlArr[2];
+    const domainName = domain.split('.')[1];
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          url: url,
+          domain: domainName,
+        }
+      }
+    });
+
+    app.mount('#app');
+  
+  </script>
+
 </html>
