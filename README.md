@@ -22,6 +22,6 @@ Experiment with the different links and watch how our system detects what makes 
 
 ## Bonus technical features
 In background.js, we have implemented the use of Google's Safe Browsing API. </br>
-Uncomment lines 7 to lines 77 and comment out lines 117 to lines 169. </br></br>
+Uncomment lines 7 to lines 77 and comment out lines 80 to lines 114. </br></br>
 We do NOT have real malicious links due to ethical and legal concerns but if you do get your hands on any (somehow), the API will work and block you from accessing the page, while educating you on why it has been blocked.
 
