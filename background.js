@@ -93,9 +93,9 @@ chrome.runtime.onInstalled.addListener(() => {
       addRules: [{
         id: 1,
         priority: 1,
-        action: { type: 'redirect', redirect: { extensionPath: '/index.html' } },
+        action: { type: 'redirect', redirect: { extensionPath: '/warning.html' } },
         condition: {
-          urlFilter: 'https://www.nestle.com/*',
+          urlFilter: 'http://localhost/hackathon/lifehack-24/websites/*', 
           resourceTypes: ['main_frame']
         }
       }]
