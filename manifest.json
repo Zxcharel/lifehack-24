@@ -1,22 +1,15 @@
 {
     "manifest_version": 3,
-    "name": "URL Safety Checker",
+    "name": "URL Click Detector",
     "version": "1.0",
     "permissions": [
-      "declarativeNetRequest",
       "activeTab"
     ],
-    "background": {
-      "service_worker": "test.js"
-    },
     "content_scripts": [
-        {
+      {
         "matches": ["<all_urls>"],
-        "js": ["config/content.js"]
-        }
-    ],  
-    "host_permissions": [
-      "<all_urls>"
+        "js": ["content.js"]
+      }
     ]
   }
   
