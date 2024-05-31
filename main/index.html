@@ -43,11 +43,39 @@
           <p class="fw-bold"> We won’t be here to protect you all the time. </p>
 
           <div class="justify-content-center d-flex">
-            
-            <button class="btn mt-3 rounded-pill fw-bold px-4" onclick="" style="background-color: #AC7EBA;
+
+            <button class="btn mt-3 rounded-pill fw-bold px-4" @click="getTips()" style="background-color: #AC7EBA;
             color: white; font-size: small;">
               LEARN HOW TO IDENTIFY SAFE WEBSITES
             </button>
+
+          </div>
+
+          <div class="container" id="tips"> 
+
+            <div class="container" id="protocol" style="background-color: #AC7EBA; color: white;">
+
+              <span class="fw-bold"> 
+              
+                The website you tried to visit:
+                
+                <h6> 
+
+                  <span style="color: #403F69">{{ protocol }}</span>//{{domain}}/{{path}}/{{query}}
+                   
+                </h6>
+              
+              </span>
+
+            </div>
+
+            <div class="container" id="domain">
+
+            </div>
+
+            <div class="container" id="query">
+
+            </div>
 
           </div>
 
@@ -65,18 +93,47 @@
 
   <script>
 
-    const url = window.location.href;
-    const urlArr = url.split('/');
-    const domain = urlArr[2];
-    const domainName = domain.split('.')[1];
+    // const url = window.location.href;
+    const url = "https://www.youtube.com/videos/user/watch?v=lnx1n1ZM6Bc&ab_channel=DudeLemon"
+    const temp = url.split('//');
+    const protocol = temp[0];
+    const urlArr = temp[1].split('/');
+    const path = urlArr.slice(1, urlArr.length - 1).join('/');
+    const domain = urlArr[0];
+    const query = urlArr[urlArr.length - 1];
+
 
     const app = Vue.createApp({
       data() {
         return {
           url: url,
-          domain: domainName,
+          protocol: protocol,
+          domain: domain,
+          path: path,
+          query: query
         }
+      },
+
+      methods: {
+
+        getTips() {
+          console.log(protocol);
+          console.log(urlArr);
+          console.log(protocol)
+          console.log(domain)
+          console.log(path)
+          console.log(query)
+
+          if (protocol === "http:") {
+
+
+
+          }
+
+        }
+
       }
+
     });
 
     app.mount('#app');
