@@ -13,7 +13,7 @@
       "notifications"
     ],
     "background": {
-      "service_worker": "config/background.js"
+      "service_worker": "background.js"
     },
     "host_permissions": [
       "<all_urls>"
@@ -22,7 +22,7 @@
       "rule_resources": [{
         "id": "ruleset_1",
         "enabled": true,
-        "path": "config/rules.json"
+        "path": "rules.json"
       }]
     }
   }

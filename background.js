@@ -1,6 +1,11 @@
+// Uncomment lines 7 to 77 to utilise the Google Safe Search API
+// It has been commented out due to insufficient malicious website examples
+
+// Google API version:
+
+
 // const API_KEY = 'AIzaSyBPwVEMzRqc1CAvdCb3wVndMvp3sOoGFGY'; // Replace with your API key
 // const SAFE_BROWSING_URL = `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${API_KEY}`;
-
 // chrome.webNavigation.onBeforeNavigate.addListener(async function(details) {
 //   const url = details.url;
 //   console.log('Navigating to:', url);
@@ -49,7 +54,7 @@
 //           action: {
 //             type: 'redirect',
 //             redirect: {
-//               extensionPath: `../main/index.html`
+//               extensionPath: `index.html`
 //             }
 //           },
 //           condition: {
@@ -71,36 +76,35 @@
 //   }
 // }, { url: [{ urlMatches: '<all_urls>' }] });
 
-
-// chrome.webNavigation.onBeforeNavigate.addListener(function(details) {
-//     const url = details.url;
-//     console.log('Navigating to:', url.href); // Log the URL being navigated to
-//     if (url.hostname === 'www.nestle.com' && url.protocol === 'https:') {
-//       console.log('Redirecting to warning page...'); // Log the redirection
-//       // Redirect to the warning page
-//       chrome.tabs.update(details.tabId, { url: chrome.runtime.getURL('../main/index.html') });
-//     }
-//   }, { url: [{ hostEquals: 'www.nestle.com' }] });
   
+chrome.runtime.onInstalled.addListener(() => {
+  // Remove existing rule first
+  chrome.declarativeNetRequest.updateDynamicRules({
+    removeRuleIds: [1]
+  }, () => {
+    if (chrome.runtime.lastError) {
+      console.error('Error removing rule:', chrome.runtime.lastError);
+      return;
+    }
+    console.log('Existing rule removed successfully.');
 
-  chrome.runtime.onInstalled.addListener(() => {
+    // Now add the new rule
     chrome.declarativeNetRequest.updateDynamicRules({
       addRules: [{
         id: 1,
         priority: 1,
-        action: { type: 'redirect', redirect: { extensionPath: '../main/index.html' } },
+        action: { type: 'redirect', redirect: { extensionPath: '/index.html' } },
         condition: {
           urlFilter: 'https://www.nestle.com/*',
           resourceTypes: ['main_frame']
         }
-      }],
-      removeRuleIds: [1]
+      }]
     }, () => {
       if (chrome.runtime.lastError) {
-        console.error(chrome.runtime.lastError);
+        console.error('Error adding rule:', chrome.runtime.lastError);
       } else {
         console.log('Rule added successfully.');
       }
     });
   });
-  
+});
