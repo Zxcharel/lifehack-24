@@ -6,11 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="websites/unsafe-protocol.html" onclick="localStorage.setItem('url', `http:/` + '/www.internet-banking.dbs.com.sg/IB/welcome')"> http://www.internet-banking.dbs.com.sg/IB/welcome </a>
+    <a href="websites/unsafe-protocol.html" onclick="sessionStorage.setItem('url', `http:/` + '/www.internet-banking.dbs.com.sg/IB/welcome')"> http://www.internet-banking.dbs.com.sg/IB/welcome </a>
         </br>
-    <a href="websites/unsafe-domain.html" onclick="localStorage.setItem('url', `https:/` + '/www.internet.banking.sc.com.sg/IB/welcome?sg=1')"> https://www.internet.banking.sc.com.sg/IB/welcome?sg=1 </a>
+    <a href="websites/unsafe-domain.html" onclick="sessionStorage.setItem('url', `https:/` + '/www.internet.banking.sc.com.sg/IB/welcome?sg=1')"> https://www.internet.banking.sc.com.sg/IB/welcome?sg=1 </a>
         </br>
-    <a href="websites/unsafe-query.html" onclick="localStorage.setItem('url', `https:/` + '/www.uob.com.sg/IB/welcome?sg=')"> https://www.uob.com.sg/IB/welcome?sg= </a>
+    <a href="websites/unsafe-query.html" onclick="sessionStorage.setItem('url', `https:/` + '/www.uob.com.sg/IB/welcome?sg=')"> https://www.uob.com.sg/IB/welcome?sg= </a>
 
 </body>
 </html>

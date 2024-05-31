@@ -1,8 +1,3 @@
-
-
-    // const url = window.location.href;
-    // const url = "http://www.youtube.com/videos/user/search?query=lnx1n1ZM6Bc&ab_channel="
-
     
     const testUrls = {
       'http://localhost/hackathon/lifehack-24/websites/unsafe-protocol.html': 'http://www.internet-banking.dbs.com.sg/IB/welcome',
@@ -10,12 +5,7 @@
       'http://localhost/hackathon/lifehack-24/websites/unsafe-query.html': 'https://www.uob.com.sg/IB/welcome?sg=',
     }
 
-    
-
-    // const url = testUrls[localStorage.getItem('url')];
-    initialize().then(() => {
-
-    const url = localStorage.getItem('url');
+    const url = sessionStorage.getItem('url');
     console.log(url);
     const temp = url.split('//');
     const protocol = temp[0];
@@ -109,10 +99,14 @@
           return false;
         }
 
+      },
+
+      created() {
+        console.log("mounted")
       }
 
     });
 
     app.mount('#app');
 
-});
+// });
