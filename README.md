@@ -11,7 +11,7 @@ How to configure the Chrome Extension:
 
 Tada! You have successfully created the Fraudian Chrome extension.
 
-Open localhost (for Windows) or localhost:<portnumber> (for Mac) on your machine and navigate to localhost/hackathon/lifehack-24/
+Open localhost (for Windows) or localhost:[portnumber] (for Mac) on your machine and navigate to localhost/hackathon/lifehack-24/
 
 You will be redirected to index.html which has 3 links that are "malicious". There are no available malicious links that can be found online so we had to make our own.
 Experiment with the different links and watch how our system detects what makes these links fraudulent!
