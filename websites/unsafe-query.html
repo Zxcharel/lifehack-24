@@ -58,9 +58,19 @@
         </div>
         
         <p> WOP WOP WOP WOP WOP </p>
-        <button class="button">Get on the list NOW!</button>
+        <button class="button" onclick="redirect()">Get on the list NOW!</button>
 
         <p>Results may vary. Terms and conditions apply.</p>
     </div>
+
+    <script>
+
+        function redirect() {
+            localStorage.setItem('url', `https:/` + '/www.uob.com.sg/IB/welcome?sg=');
+            window.location.href = '../index.html';
+        }
+
+    </script>
+
 </body>
 </html>

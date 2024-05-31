@@ -16,7 +16,7 @@
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
 
-  <body class="background m-0 p-0" id="app" style="background: url(../img/bg.jpg) no-repeat center center fixed;
+  <body class="background m-0 p-0" id="app" style="background: url(img/bg.jpg) no-repeat center center fixed;
   background-size: cover; display: flex;">
 
     <div class="container d-flex" style="width: 50vw; height: 100vh; background-color: white; 
@@ -68,7 +68,7 @@
                 <div class="row p-0 d-flex justify-content-center align-items-center">
 
                   <div class="col-2 p-1">
-                    <img src="../img/warning.png" style="width: 100%; height: auto;">
+                    <img src="img/warning.png" style="width: 100%; height: auto;">
                   </div>
 
                   <div class="col-10 p-1"> 
@@ -97,7 +97,7 @@
                 <div class="row p-0 d-flex justify-content-center align-items-center">
 
                   <div class="col-2 p-1">
-                    <img src="../img/warning.png" style="width: 100%; height: auto;">
+                    <img src="img/warning.png" style="width: 100%; height: auto;">
                   </div>
 
                   <div class="col-10 p-1"> 
@@ -126,7 +126,7 @@
                 <div class="row p-0 d-flex justify-content-center align-items-center">
 
                   <div class="col-2 p-1">
-                    <img src="../img/warning.png" style="width: 100%; height: auto;">
+                    <img src="img/warning.png" style="width: 100%; height: auto;">
                   </div>
 
                   <div class="col-10 p-1"> 
@@ -147,14 +147,14 @@
                 
                 <h6 class="fw-normal mt-2" style="overflow-wrap: break-word; text-decoration: underline;"> 
 
-                  {{ protocol }}//{{domain}}/{{path}}/{{query}}
+                  https://{{safeDomain}}/{{path}}/{{safeQuery}}
                    
                 </h6>
 
                 <div class="row p-0 d-flex justify-content-center align-items-center">
 
                   <div class="col-2 p-1">
-                    <img src="../img/tick.png" style="width: 100%; height: auto;">
+                    <img src="img/tick.png" style="width: 100%; height: auto;">
                   </div>
 
                   <div class="col-10 p-1" v-html="safeTips"> 
@@ -176,7 +176,7 @@
     </div>
 
     <div class="container justify-content-center" style="display: flex; width: 50vw; height: 100vh; align-items: center;">
-      <img src="../img/warning_overlay.png" style="width: 80%; height: 80%; object-fit: contain;">
+      <img src="img/warning_overlay.png" style="width: 80%; height: 80%; object-fit: contain;">
     </div>
       
   </body>
@@ -184,13 +184,25 @@
   <script>
 
     // const url = window.location.href;
-    const url = "http://www.youtube.com/videos/user/search?query=lnx1n1ZM6Bc&ab_channel="
+    // const url = "http://www.youtube.com/videos/user/search?query=lnx1n1ZM6Bc&ab_channel="
+    const url = localStorage.getItem('url');
     const temp = url.split('//');
     const protocol = temp[0];
     const urlArr = temp[1].split('/');
     const path = urlArr.slice(1, urlArr.length - 1).join('/');
     const domain = urlArr[0];
     const query = urlArr[urlArr.length - 1];
+
+    const bankKeywords = {
+        'dbs': 'www.dbs.com.sg',
+        'ocbc': 'www.ocbc.com.sg',
+        'uob': 'www.uob.com.sg',
+        'hsbc': 'www.hsbc.com.sg',
+        'sc': 'www.sc.com.sg',
+        'cimb': 'www.cimbpreferred.com.sg',
+        'citibank': 'www.citibank.com.sg',
+        'maybank': 'www.maybank2u.com.sg',
+    };
 
 
     const app = Vue.createApp({
@@ -201,6 +213,8 @@
           domain: domain,
           path: path,
           query: query,
+          safeDomain: "",
+          safeQuery: "",
           safeTips: ""
         }
       },
@@ -216,21 +230,33 @@
             this.safeTips += "- Use HTTPS protocol </br>";
           }
 
-          if (domain !== "www.google.com") {
+          if (this.isBankDomain !== false && this.domain !== bankKeywords[this.isBankDomain]) {
             document.getElementById("domain").style.display = "block";
+            this.safeDomain = bankKeywords[this.isBankDomain]
             this.safeTips += "- Visit websites with trusted domain names </br> ";
           }
+          else {
+            this.safeDomain = domain;
+          }
 
-          queries = query.split('&')
-          console.log(queries)
+          if (query.includes('?')) {
 
-          for (check of queries) {
-            console.log(check)
-            if (check.split('=').size != 2) {
-              document.getElementById("query").style.display = "block";
-              this.safeTips += "- Avoid websites with suspicious queries </br>";
-              break;
+            queries = query.split('&')
+            console.log(queries)
+
+            for (check of queries) {
+              console.log(check)
+              if (check.split('=').size != 2 || check.split('=')[1] == "--") {
+                document.getElementById("query").style.display = "block";
+                this.safeTips += "- Avoid websites with suspicious queries </br>";
+                this.safeQuery = "?query=example&key=value";
+                break;
+              }
             }
+
+          }
+          else {
+            this.safeQuery = query;
           }
 
           document.getElementById("safe").style.display = "block"; 
@@ -241,7 +267,15 @@
 
       computed: {
 
-        
+        isBankDomain() {
+          for (const [keyword, properDomain] of Object.entries(bankKeywords)) {
+              if (this.domain.includes(keyword)) {
+                  this.bankDomain = properDomain;
+                  return keyword;
+              }
+          }
+          return false;
+        }
 
       }
 

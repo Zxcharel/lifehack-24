@@ -45,7 +45,16 @@
     </div>
     
     <p>Act Now and Change Your Life Forever!</p>
-    <button class="button">Click Here for Instant Boners!</button>
+    <button class="button" onclick="redirect()">Click Here for Instant Boners!</button>
+
+    <script>
+
+        function redirect() {
+            localStorage.setItem('url', `https:/` + '/www.internet.banking.sc.com.sg/IB/welcome?sg=1');
+            window.location.href = '../index.html';
+        }
+
+    </script>
 
     <p>Terms and conditions apply. Limited time offer. Results may vary.</p>
 </body>

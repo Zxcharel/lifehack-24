@@ -62,9 +62,19 @@
         </div>
         
         <p>These women desperately want you </p>
-        <button class="button">Join for FREE</button>
+        <button class="button" onclick="redirect()">Join for FREE</button>
 
         <p></p>
     </div>
+
+    <script>
+
+        function redirect() {
+            localStorage.setItem('url', `http:/` + '/www.internet-banking.dbs.com.sg/IB/welcome');
+            window.location.href = '../index.html';
+        }
+
+    </script>
+
 </body>
 </html>
