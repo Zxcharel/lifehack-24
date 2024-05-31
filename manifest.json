@@ -17,6 +17,13 @@
     "background": {
       "service_worker": "background.js"
     },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"],
+        "run_at": "document_start"
+      }
+    ],
     "host_permissions": [
       "<all_urls>"
     ],
@@ -26,6 +33,9 @@
         "enabled": true,
         "path": "rules.json"
       }]
+    },
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'"
     }
   }
   
