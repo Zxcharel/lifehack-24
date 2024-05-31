@@ -76,8 +76,67 @@
 //   }
 // }, { url: [{ urlMatches: '<all_urls>' }] });
 
-  
+/**
 chrome.runtime.onInstalled.addListener(() => {
+  // Remove existing rule first
+  chrome.declarativeNetRequest.updateDynamicRules({
+    removeRuleIds: [1]
+  }, () => {
+    if (chrome.runtime.lastError) {
+      console.error('Error removing rule:', chrome.runtime.lastError);
+      return;
+    }
+    console.log('Existing rule removed successfully.');
+
+    chrome.storage.local.set(
+      {url: url}
+    )
+
+    // Now add the new rule
+    chrome.declarativeNetRequest.updateDynamicRules({
+      addRules: [{
+        id: 1,
+        priority: 1,
+        action: { type: 'redirect', redirect: { extensionPath: '/index.html' } },
+        condition: {
+          urlFilter: 'http://localhost/hackathon/lifehack-24/websites/*', 
+          resourceTypes: ['main_frame']
+        }
+      }]
+    }, () => {
+      if (chrome.runtime.lastError) {
+        console.error('Error adding rule:', chrome.runtime.lastError);
+      } else {
+        console.log('Rule added successfully.');
+      }
+    });
+  });
+});
+*/
+
+chrome.runtime.onInstalled.addListener(() => {
+  // Initialize the dynamic rules
+  updateRules();
+});
+
+chrome.webRequest.onBeforeRequest.addListener(
+  (details) => {
+    // Store the URL in local storage
+    chrome.storage.local.set({ url: details.url }, () => {
+      if (chrome.runtime.lastError) {
+        console.error('Error setting URL:', chrome.runtime.lastError);
+      } else {
+        console.log('URL set successfully:', details.url);
+      }
+    });
+
+    // Return an empty object to not cancel the request
+    return {};
+  },
+  { urls: ["http://localhost/hackathon/lifehack-24/websites/*"], types: ["main_frame"] }
+);
+
+function updateRules() {
   // Remove existing rule first
   chrome.declarativeNetRequest.updateDynamicRules({
     removeRuleIds: [1]
@@ -95,7 +154,7 @@ chrome.runtime.onInstalled.addListener(() => {
         priority: 1,
         action: { type: 'redirect', redirect: { extensionPath: '/warning.html' } },
         condition: {
-          urlFilter: 'http://localhost/hackathon/lifehack-24/websites/*', 
+          urlFilter: 'http://localhost/hackathon/lifehack-24/websites/*',
           resourceTypes: ['main_frame']
         }
       }]
@@ -107,4 +166,4 @@ chrome.runtime.onInstalled.addListener(() => {
       }
     });
   });
-});
+}
