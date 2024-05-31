@@ -14,6 +14,9 @@
 
       <!-- Add Axios Library -->
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+      <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-abc123';">
+      <script src="warning.js"></script>
   </head>
 
   <body class="background m-0 p-0" id="app" style="background: url(img/bg.jpg) no-repeat center center fixed;
@@ -181,7 +184,7 @@
       
   </body>
 
-  <script>
+  <!-- <script nonce="abc123">
 
     // const url = window.location.href;
     // const url = "http://www.youtube.com/videos/user/search?query=lnx1n1ZM6Bc&ab_channel="
@@ -292,6 +295,6 @@
 
     app.mount('#app');
   
-  </script>
+  </script> -->
 
 </html>
