@@ -54,7 +54,7 @@
 //           action: {
 //             type: 'redirect',
 //             redirect: {
-//               extensionPath: `index.html`
+//               extensionPath: `/index.html`
 //             }
 //           },
 //           condition: {
