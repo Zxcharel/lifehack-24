@@ -1,15 +1,16 @@
 {
     "manifest_version": 3,
-    "name": "URL Click Detector",
+    "name": "Address Bar URL Interceptor",
     "version": "1.0",
     "permissions": [
-      "activeTab"
+      "activeTab",
+      "webNavigation"
     ],
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"]
-      }
+    "background": {
+      "service_worker": "background.js"
+    },
+    "host_permissions": [
+      "<all_urls>"
     ]
   }
   
